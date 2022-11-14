@@ -5,4 +5,5 @@ services:
     image: express-server # Declares which image to use
     build: .              # Declares where to build if image is not found
     ports:                # Declares the ports to publish
-      - 3000:3000
+      - 3001:3001
+    command: ["npm","run","dev"]

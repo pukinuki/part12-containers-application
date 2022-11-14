@@ -1,0 +1,24 @@
+version: '3.3'            # Version 3.8 is quite new and should work
+
+services:
+  app:
+    image: blog-front
+    ports:
+      - 8080:80
+    build:
+      context: ./frontend # The context will pick this directory as the "build context"
+      dockerfile: Dockerfile # This will simply tell which dockerfile to read
+    container_name: blog-front # This will name the container blog-front-dev
+  
+  server:
+    image: blog-back
+    environment:
+      - MONGODB_URI=mongodb+srv://pukinuki:mongo<PASSWORD>@cluster0.wfrxug7.mongodb.net/blogApp?retryWrites=true&w=majority
+      - PORT=3003
+      - SECRET=secret
+    ports:
+      - 3003:3003
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: blog-back

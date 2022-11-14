@@ -1,0 +1,24 @@
+version: '3.3'            # Version 3.8 is quite new and should work
+
+services:
+  app:
+    image: blog-front-dev
+    build:
+      context: ./frontend # The context will pick this directory as the "build context"
+      dockerfile: dev.Dockerfile # This will simply tell which dockerfile to read
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/usr/src/app # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
+    container_name: blog-front-dev # This will name the container blog-front-dev
+
+  server:
+    image: blog-back-dev
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3003:3003
+    volumes:
+      - ./backend:/usr/src/server
+    container_name: blog-back-dev
